@@ -21,27 +21,41 @@ import javafx.stage.Stage;
 import static ru.levitsky.calculator.constants.CalculatorConstants.ADDITION_OPERATOR;
 import static ru.levitsky.calculator.constants.CalculatorConstants.CLEAR_FUNCTION;
 import static ru.levitsky.calculator.constants.CalculatorConstants.DIVISION_OPERATOR;
+import static ru.levitsky.calculator.constants.CalculatorConstants.DOT2_FUNCTION;
 import static ru.levitsky.calculator.constants.CalculatorConstants.DOT_FUNCTION;
+import static ru.levitsky.calculator.constants.CalculatorConstants.EMPTY_OPERATOR;
 import static ru.levitsky.calculator.constants.CalculatorConstants.EQUALS_OPERATOR;
 import static ru.levitsky.calculator.constants.CalculatorConstants.MULTIPLICATION_OPERATOR;
 import static ru.levitsky.calculator.constants.CalculatorConstants.PERCENT_FUNCTION;
 import static ru.levitsky.calculator.constants.CalculatorConstants.SUBTRACTION_OPERATOR;
 import static ru.levitsky.calculator.constants.CalculatorConstants.TOGGLE_SIGN_FUNCTION;
 import static ru.levitsky.calculator.constants.UIConstants.BG_COLOR;
-import static ru.levitsky.calculator.constants.UIConstants.DISPLAY_BG;
-import static ru.levitsky.calculator.constants.UIConstants.DISPLAY_TEXT;
 import static ru.levitsky.calculator.constants.UIConstants.FUNCTION_BG;
 import static ru.levitsky.calculator.constants.UIConstants.NUMBER_BG;
 import static ru.levitsky.calculator.constants.UIConstants.OPERATOR_BG;
+import static ru.levitsky.calculator.constants.UIConstants.SYSTEM_FONT;
 import static ru.levitsky.calculator.constants.UIConstants.TITLE;
+import static ru.levitsky.calculator.constants.UIStyleConstants.BUTTON_FONT_SIZE;
+import static ru.levitsky.calculator.constants.UIStyleConstants.BUTTON_GRID_GAP;
+import static ru.levitsky.calculator.constants.UIStyleConstants.BUTTON_GRID_PADDING;
+import static ru.levitsky.calculator.constants.UIStyleConstants.DISPLAY_FIELD_STYLE;
+import static ru.levitsky.calculator.constants.UIStyleConstants.DISPLAY_FONT_SIZE;
+import static ru.levitsky.calculator.constants.UIStyleConstants.ERROR_MESSAGE;
+import static ru.levitsky.calculator.constants.UIStyleConstants.FOCUSED_BUTTON_POSTFIX;
+import static ru.levitsky.calculator.constants.UIStyleConstants.setButtonStyle;
+import static ru.levitsky.calculator.util.Utils.isFunction;
+import static ru.levitsky.calculator.util.Utils.isOperator;
 
 public class Calculator extends Application {
 
     private TextField display;
-    private double num1 = 0, num2 = 0;
-    private String operator = "";
-    private boolean startNewNumber = true;
+
+    private String operator = EMPTY_OPERATOR;
+
     private boolean calculationDone = false;
+    private boolean startNewNumber = true;
+
+    private double num1 = 0, num2 = 0;
 
     @Override
     public void start(Stage primaryStage) {
@@ -75,14 +89,8 @@ public class Calculator extends Application {
     private TextField createDisplay() {
         TextField displayField = new TextField("0");
         displayField.setEditable(false);
-        displayField.setFont(Font.font("Arial", FontWeight.BOLD, 36));
-        displayField.setStyle("-fx-background-color: " + toHex(DISPLAY_BG) + "; " +
-                "-fx-text-fill: " + toHex(DISPLAY_TEXT) + "; " +
-                "-fx-border-color: #555555; " +
-                "-fx-border-width: 2px; " +
-                "-fx-border-radius: 10px; " +
-                "-fx-background-radius: 10px; " +
-                "-fx-padding: 10px;");
+        displayField.setFont(Font.font(SYSTEM_FONT, FontWeight.BOLD, DISPLAY_FONT_SIZE));
+        displayField.setStyle(DISPLAY_FIELD_STYLE);
         displayField.setPrefHeight(100);
         displayField.setAlignment(Pos.CENTER_RIGHT);
         return displayField;
@@ -90,9 +98,9 @@ public class Calculator extends Application {
 
     private GridPane createButtonGrid() {
         GridPane grid = new GridPane();
-        grid.setHgap(15);
-        grid.setVgap(15);
-        grid.setPadding(new Insets(10));
+        grid.setHgap(BUTTON_GRID_GAP);
+        grid.setVgap(BUTTON_GRID_GAP);
+        grid.setPadding(new Insets(BUTTON_GRID_PADDING));
 
         String[][] buttonLabels = {
                 {CLEAR_FUNCTION, TOGGLE_SIGN_FUNCTION, PERCENT_FUNCTION, DIVISION_OPERATOR},
@@ -109,7 +117,6 @@ public class Calculator extends Application {
 
                 if (label.equals("0")) {
                     grid.add(button, col, row, 2, 1);
-                    col++;
                 } else if (label.equals(EQUALS_OPERATOR)) {
                     grid.add(button, col + 1, row);
                 } else {
@@ -123,7 +130,7 @@ public class Calculator extends Application {
 
     private Button createButton(String label) {
         Button button = new Button(label);
-        button.setFont(Font.font("Arial", FontWeight.BOLD, 24));
+        button.setFont(Font.font(SYSTEM_FONT, FontWeight.BOLD, BUTTON_FONT_SIZE));
         button.setPrefSize(80, 70);
         button.setFocusTraversable(false);
 
@@ -136,17 +143,13 @@ public class Calculator extends Application {
             buttonColor = NUMBER_BG;
         }
 
-        String style = "-fx-background-color: " + toHex(buttonColor) + "; " +
-                "-fx-text-fill: white; " +
-                "-fx-border-radius: 35px; " +
-                "-fx-background-radius: 35px; " +
-                "-fx-cursor: hand;";
+        String buttonStyle = setButtonStyle(buttonColor);
 
-        button.setStyle(style);
+        button.setStyle(buttonStyle);
 
-        button.setOnMouseEntered(_ -> button.setStyle(style + " -fx-effect: dropshadow(three-pass-box, rgba(255,255,255,0.3), 10, 0, 0, 0);"));
+        button.setOnMouseEntered(_ -> button.setStyle(buttonStyle + FOCUSED_BUTTON_POSTFIX));
 
-        button.setOnMouseExited(_ -> button.setStyle(style));
+        button.setOnMouseExited(_ -> button.setStyle(buttonStyle));
 
         button.setOnAction(_ -> {
             handleButtonClick(label);
@@ -193,7 +196,7 @@ public class Calculator extends Application {
                 handleButtonClick(EQUALS_OPERATOR);
                 break;
 
-            case DOT_FUNCTION, ",":
+            case DOT_FUNCTION, DOT2_FUNCTION:
                 handleButtonClick(DOT_FUNCTION);
                 break;
 
@@ -268,7 +271,7 @@ public class Calculator extends Application {
             case NUMPAD7:
             case NUMPAD8:
             case NUMPAD9:
-                String digit = code.toString().replace("NUMPAD", "");
+                String digit = code.toString().replace("NUMPAD", EMPTY_OPERATOR);
                 handleButtonClick(digit);
                 event.consume();
                 break;
@@ -355,7 +358,7 @@ public class Calculator extends Application {
             startNewNumber = true;
             calculationDone = false;
         } catch (NumberFormatException e) {
-            display.setText("Error");
+            display.setText(ERROR_MESSAGE);
             resetCalculator();
         }
     }
@@ -371,17 +374,17 @@ public class Calculator extends Application {
                 display.setText(String.valueOf((long) result));
             } else {
                 String formatted = String.format("%.12f", result);
-                formatted = formatted.replaceAll("0*$", "").replaceAll("\\.$", "");
+                formatted = formatted.replaceAll("0*$", EMPTY_OPERATOR).replaceAll("\\.$", EMPTY_OPERATOR);
                 display.setText(formatted);
             }
 
             num1 = result;
             startNewNumber = true;
             calculationDone = true;
-            operator = "";
+            operator = EMPTY_OPERATOR;
 
         } catch (NumberFormatException | ArithmeticException e) {
-            display.setText("Error");
+            display.setText(ERROR_MESSAGE);
             resetCalculator();
         }
     }
@@ -421,37 +424,15 @@ public class Calculator extends Application {
             display.setText(String.valueOf(value / 100));
             startNewNumber = true;
         } catch (NumberFormatException e) {
-            display.setText("Error");
+            display.setText(ERROR_MESSAGE);
         }
     }
 
     private void resetCalculator() {
         num1 = 0;
         num2 = 0;
-        operator = "";
+        operator = EMPTY_OPERATOR;
         startNewNumber = true;
         calculationDone = false;
-    }
-
-    private boolean isOperator(String label) {
-        return label.equals(ADDITION_OPERATOR) ||
-                label.equals(SUBTRACTION_OPERATOR) ||
-                label.equals(MULTIPLICATION_OPERATOR) ||
-                label.equals(DIVISION_OPERATOR) ||
-                label.equals(EQUALS_OPERATOR);
-    }
-
-    private boolean isFunction(String label) {
-        return label.equals(CLEAR_FUNCTION) ||
-                label.equals(TOGGLE_SIGN_FUNCTION) ||
-                label.equals(PERCENT_FUNCTION) ||
-                label.equals(DOT_FUNCTION);
-    }
-
-    private String toHex(Color color) {
-        return String.format("#%02X%02X%02X",
-                (int) (color.getRed() * 255),
-                (int) (color.getGreen() * 255),
-                (int) (color.getBlue() * 255));
     }
 }
