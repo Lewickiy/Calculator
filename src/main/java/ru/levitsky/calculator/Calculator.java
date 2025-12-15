@@ -161,7 +161,6 @@ public class Calculator extends Application {
 
     private void setupSimpleKeyboardSupport(VBox root) {
         root.addEventFilter(KeyEvent.KEY_TYPED, this::handleKeyTyped);
-        root.addEventFilter(KeyEvent.KEY_PRESSED, this::handleSpecialKeys);
     }
 
     private void handleKeyTyped(KeyEvent event) {
