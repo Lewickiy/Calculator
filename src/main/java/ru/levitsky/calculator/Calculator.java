@@ -6,7 +6,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -209,72 +208,6 @@ public class Calculator extends Application {
         }
 
         event.consume();
-    }
-
-    private void handleSpecialKeys(KeyEvent event) {
-        KeyCode code = event.getCode();
-
-        if (code == KeyCode.SHIFT || code == KeyCode.CONTROL || code == KeyCode.ALT) {
-            return;
-        }
-
-        switch (code) {
-            case ENTER:
-                handleButtonClick(EQUALS_OPERATOR);
-                event.consume();
-                break;
-
-            case ESCAPE:
-            case DELETE:
-                handleButtonClick(CLEAR_FUNCTION);
-                event.consume();
-                break;
-
-            case BACK_SPACE:
-                handleBackspace();
-                event.consume();
-                break;
-
-            case ADD:
-                handleButtonClick(ADDITION_OPERATOR);
-                event.consume();
-                break;
-
-            case SUBTRACT:
-                handleButtonClick(SUBTRACTION_OPERATOR);
-                event.consume();
-                break;
-
-            case MULTIPLY:
-                handleButtonClick(MULTIPLICATION_OPERATOR);
-                event.consume();
-                break;
-
-            case DIVIDE:
-                handleButtonClick(DIVISION_OPERATOR);
-                event.consume();
-                break;
-
-            case DECIMAL:
-                handleButtonClick(DOT_FUNCTION);
-                event.consume();
-                break;
-
-            case NUMPAD0:
-            case NUMPAD1:
-            case NUMPAD2:
-            case NUMPAD3:
-            case NUMPAD4:
-            case NUMPAD5:
-            case NUMPAD6:
-            case NUMPAD7:
-            case NUMPAD8:
-            case NUMPAD9:
-                String digit = code.toString().replace("NUMPAD", EMPTY_OPERATOR);
-                handleButtonClick(digit);
-                event.consume();
-                break;
-        }
     }
 
     private void handleBackspace() {
