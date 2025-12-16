@@ -210,7 +210,6 @@ public class Calculator extends Application {
 
         event.consume();
     }
-
     private void handleSpecialKeys(KeyEvent event) {
         KeyCode code = event.getCode();
 
