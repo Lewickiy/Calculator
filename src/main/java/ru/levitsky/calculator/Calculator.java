@@ -28,6 +28,7 @@ import static ru.levitsky.calculator.constants.CalculatorConstants.MULTIPLICATIO
 import static ru.levitsky.calculator.constants.CalculatorConstants.PERCENT_FUNCTION;
 import static ru.levitsky.calculator.constants.CalculatorConstants.SUBTRACTION_OPERATOR;
 import static ru.levitsky.calculator.constants.CalculatorConstants.TOGGLE_SIGN_FUNCTION;
+import static ru.levitsky.calculator.constants.CalculatorConstants.HISTORY_FUNCTION;
 import static ru.levitsky.calculator.constants.UIConstants.BG_COLOR;
 import static ru.levitsky.calculator.constants.UIConstants.FUNCTION_BG;
 import static ru.levitsky.calculator.constants.UIConstants.NUMBER_BG;
@@ -101,12 +102,12 @@ public class Calculator extends Application {
         grid.setVgap(BUTTON_GRID_GAP);
         grid.setPadding(new Insets(BUTTON_GRID_PADDING));
 
-        String[][] buttonLabels = {
-                {CLEAR_FUNCTION, TOGGLE_SIGN_FUNCTION, PERCENT_FUNCTION, DIVISION_OPERATOR},
-                {"7", "8", "9", MULTIPLICATION_OPERATOR},
-                {"4", "5", "6", SUBTRACTION_OPERATOR},
-                {"1", "2", "3", ADDITION_OPERATOR},
-                {"0", DOT_FUNCTION, EQUALS_OPERATOR}
+        String[][] buttonLabels = { // Изменил расположение кнопки сместив крайний правый ряд вниз
+                {CLEAR_FUNCTION, TOGGLE_SIGN_FUNCTION, PERCENT_FUNCTION, HISTORY_FUNCTION},
+                {"7", "8", "9", DIVISION_OPERATOR},
+                {"4", "5", "6", MULTIPLICATION_OPERATOR},
+                {"1", "2", "3", SUBTRACTION_OPERATOR},
+                {"0", DOT_FUNCTION, EQUALS_OPERATOR, ADDITION_OPERATOR}
         };
 
         for (int row = 0; row < buttonLabels.length; row++) {
@@ -116,8 +117,6 @@ public class Calculator extends Application {
 
                 if (label.equals("0")) {
                     grid.add(button, col, row, 2, 1);
-                } else if (label.equals(EQUALS_OPERATOR)) {
-                    grid.add(button, col + 1, row);
                 } else {
                     grid.add(button, col, row);
                 }
@@ -134,7 +133,9 @@ public class Calculator extends Application {
         button.setFocusTraversable(false);
 
         Color buttonColor;
-        if (isOperator(label)) {
+        if (label.equals(HISTORY_FUNCTION)) {
+            buttonColor = OPERATOR_BG;
+        } else if (isOperator(label)) {
             buttonColor = OPERATOR_BG;
         } else if (isFunction(label)) {
             buttonColor = FUNCTION_BG;
@@ -236,6 +237,12 @@ public class Calculator extends Application {
 
             case DOT_FUNCTION:
                 handleDecimal();
+                break;
+
+            case HISTORY_FUNCTION:
+                display.setText("Not used");
+                startNewNumber = true;
+                calculationDone = false;
                 break;
 
             case ADDITION_OPERATOR, SUBTRACTION_OPERATOR, MULTIPLICATION_OPERATOR, DIVISION_OPERATOR:
