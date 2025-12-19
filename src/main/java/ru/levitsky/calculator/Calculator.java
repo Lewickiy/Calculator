@@ -29,7 +29,7 @@ import static ru.levitsky.calculator.constants.CalculatorConstants.MULTIPLICATIO
 import static ru.levitsky.calculator.constants.CalculatorConstants.PERCENT_FUNCTION;
 import static ru.levitsky.calculator.constants.CalculatorConstants.SUBTRACTION_OPERATOR;
 import static ru.levitsky.calculator.constants.CalculatorConstants.TOGGLE_SIGN_FUNCTION;
-import static ru.levitsky.calculator.constants.CalculatorConstants.HISTORY_FUNCTION; // Кнопка истории
+import static ru.levitsky.calculator.constants.CalculatorConstants.HISTORY_FUNCTION;
 import static ru.levitsky.calculator.constants.UIConstants.BG_COLOR;
 import static ru.levitsky.calculator.constants.UIConstants.FUNCTION_BG;
 import static ru.levitsky.calculator.constants.UIConstants.NUMBER_BG;
@@ -135,7 +135,7 @@ public class Calculator extends Application {
 
         Color buttonColor;
         if (label.equals(HISTORY_FUNCTION)) {
-            buttonColor = OPERATOR_BG; // Добавил цвет кнопке взяв из UIConstants оранжевый цвет
+            buttonColor = OPERATOR_BG;
         } else if (isOperator(label)) {
             buttonColor = OPERATOR_BG;
         } else if (isFunction(label)) {
@@ -306,7 +306,7 @@ public class Calculator extends Application {
                 handleDecimal();
                 break;
 
-            case HISTORY_FUNCTION: // Добавил фукнцию кнопки (вывод "Not used")
+            case HISTORY_FUNCTION:
                 display.setText("Not used");
                 startNewNumber = true;
                 calculationDone = false;
