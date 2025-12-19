@@ -15,5 +15,5 @@ public final class CalculatorConstants {
     public static final String DOT_FUNCTION = ".";
     public static final String DOT2_FUNCTION = ",";
 
-    public static final String HISTORY_FUNCTION = "⟲"; // Кнопка истории
+    public static final String HISTORY_FUNCTION = "⟲";
 }
