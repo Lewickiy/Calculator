@@ -1,6 +1,6 @@
 # JavaFX Calculator
 
-Современный калькулятор с красивым интерфейсом, написанный на JavaFX. Поддерживает управление с клавиатуры и мыши, имеет темную тему и профессиональную архитектуру.
+A modern calculator with a polished interface, written in JavaFX. It supports keyboard and mouse input, features a dark theme, and follows a professional architecture.
 
 <div align="center">
   <figure>
@@ -9,75 +9,86 @@
          width="400" 
          height="600"
          style="border: 1px solid #ddd; border-radius: 8px; padding: 5px;">
-    <figcaption><em>Современный калькулятор на JavaFX с темной темой</em></figcaption>
+    <figcaption><em>Modern JavaFX calculator with a dark theme</em></figcaption>
   </figure>
 </div>
 
-## Особенности
+---
 
-### Функциональность
-- **Базовые операции**: сложение, вычитание, умножение, деление
-- **Дополнительные функции**: проценты (%), смена знака (±), очистка (C)
-- **Управление с клавиатуры**: полная поддержка клавиш и Numpad
-- **Обработка ошибок**: деление на ноль, некорректный ввод
-- **Корректное округление**: автоматическое удаление лишних нулей
+## Features
 
-### Дизайн
-- **Темная тема**: современный минималистичный дизайн
-- **Анимации**: эффекты при наведении и нажатии
-- **Адаптивный интерфейс**: фиксированный размер 400×600px
-- **Профессиональные цвета**: оранжевые операторы, серые цифры
+### Functionality
+- **Basic operations**: addition, subtraction, multiplication, division
+- **Additional functions**: percentage (%), sign toggle (±), clear (C)
+- **Keyboard control**: full support for keyboard and Numpad input
+- **Error handling**: division by zero, invalid input
+- **Correct rounding**: automatic removal of trailing zeros
 
-### Управление
-- **Мышь**: клик по всем кнопкам
-- **Клавиатура**: цифры, Enter, Escape, Backspace
-- **Numpad**: полная поддержка цифровой клавиатуры
-- **Горячие клавиши**:
-  - `Enter` или `=` - вычисление
-  - `Escape` или `Delete` - очистка
-  - `Backspace` - удаление символа
-  - `Shift + =` - знак плюс
+### Design
+- **Dark theme**: modern, minimalist design
+- **Animations**: hover and press effects
+- **Responsive layout**: fixed size of 400×600 px
+- **Professional color scheme**: orange operators, gray digits
 
-## Структура проекта
+### Controls
+- **Mouse**: click all buttons
+- **Keyboard**: digits, Enter, Escape, Backspace
+- **Numpad**: full numeric keypad support
+- **Keyboard shortcuts**:
+  - `Enter` or `=` — calculate
+  - `Escape` or `Delete` — clear
+  - `Backspace` — delete a character
+  - `Shift + =` — plus sign
+
+---
+
+## Project Structure
 
 ```
+
 calculator/
 ├── src/main/java/ru/levitsky/calculator/
-│   ├── Calculator.java              # Главный класс приложения
+│   ├── Calculator.java              # Main application class
 │   ├── constants/
-│   │   ├── CalculatorConstants.java # Математические константы
-│   │   ├── UIConstants.java         # Цвета и UI константы
-│   │   └── UIStyleConstants.java    # Стили и размеры
+│   │   ├── CalculatorConstants.java # Mathematical constants
+│   │   ├── UIConstants.java         # Colors and UI constants
+│   │   └── UIStyleConstants.java    # Styles and dimensions
 │   └── util/
-│       └── Utils.java               # Вспомогательные функции
-├── pom.xml                          # Maven конфигурация
-└── README.md                        # Документация
-```
+│       └── Utils.java               # Helper utilities
+├── pom.xml                          # Maven configuration
+└── README.md                        # Documentation
 
-## Быстрый старт
+````
 
-### Предварительные требования
-- Java 25 (JDK 25 и выше)
-- JavaFX SDK 21.0.6 (автоматически загружается через Maven)
+---
+
+## Quick Start
+
+### Prerequisites
+- Java 25 (JDK 25 or higher)
+- JavaFX SDK 21.0.6 (automatically downloaded via Maven)
 - Maven 3.8+
 
-### Запуск из IDE (IntelliJ IDEA/Eclipse)
-1. Клонируйте репозиторий
-2. Откройте проект в IDE
-3. Убедитесь, что JavaFX SDK подключен
-4. Запустите `Calculator.java`
+### Run from IDE (IntelliJ IDEA / Eclipse)
+1. Clone the repository
+2. Open the project in your IDE
+3. Ensure JavaFX SDK is configured
+4. Run `Calculator.java`
 
-### Запуск из командной строки
+### Run from Command Line
 
-#### Сборка с Maven:
+#### Build with Maven:
 ```bash
 mvn clean compile
 mvn javafx:run
-```
+````
 
-## Настройка для разработчиков
+---
 
-### Конфигурация Maven (`pom.xml`):
+## Developer Setup
+
+### Maven Configuration (`pom.xml`)
+
 ```xml
 <dependencies>
     <dependency>
@@ -93,83 +104,108 @@ mvn javafx:run
 </dependencies>
 ```
 
-## Как пользоваться
+---
 
-### Базовые вычисления:
+## How to Use
+
+### Basic Calculations
+
 ```
-1. Введите первое число (например, 123.45)
-2. Нажмите оператор (+, -, ×, ÷)
-3. Введите второе число (например, 67.89)
-4. Нажмите = или Enter для получения результата
+1. Enter the first number (e.g., 123.45)
+2. Press an operator (+, -, ×, ÷)
+3. Enter the second number (e.g., 67.89)
+4. Press = or Enter to get the result
 ```
 
-### Особенности:
-- **Точка**: автоматически добавляется только один раз
-- **Очистка**: `C` сбрасывает все вычисления
-- **Смена знака**: `±` инвертирует знак текущего числа
-- **Проценты**: `%` делит число на 100
+### Notes
 
-## Тестирование
+* **Decimal point**: automatically added only once
+* **Clear**: `C` resets all calculations
+* **Sign toggle**: `±` inverts the sign of the current number
+* **Percentage**: `%` divides the number by 100
 
-Калькулятор был протестирован на следующих сценариях:
-- Базовые арифметические операции
-- Деление на ноль (показывает сообщение об ошибке)
-- Работа с десятичными числами
-- Управление с клавиатуры
-- Обработка больших чисел
-- Корректное округление
+---
 
-## Архитектурные решения
+## Testing
 
-### Разделение ответственности:
-- **Calculator.java**: контроллер и представление
-- **Константы**: отдельные классы для UI и логики
-- **Утилиты**: переиспользуемые функции проверки
+The calculator has been tested with the following scenarios:
 
-### Обработка событий:
+* Basic arithmetic operations
+* Division by zero (shows an error message)
+* Decimal number handling
+* Keyboard input
+* Large number processing
+* Correct rounding behavior
+
+---
+
+## Architectural Decisions
+
+### Separation of Responsibilities
+
+* **Calculator.java**: controller and view
+* **Constants**: separate classes for UI and logic
+* **Utilities**: reusable helper functions
+
+### Event Handling
+
 ```java
-// Двухуровневая система событий
-addEventFilter(KeyEvent.KEY_TYPED, this::handleKeyTyped);   // Обработанные символы
-addEventFilter(KeyEvent.KEY_PRESSED, this::handleSpecialKeys); // Специальные клавиши
+// Two-level event handling system
+addEventFilter(KeyEvent.KEY_TYPED, this::handleKeyTyped);       // Typed characters
+addEventFilter(KeyEvent.KEY_PRESSED, this::handleSpecialKeys); // Special keys
 ```
 
-### Управление состоянием:
+### State Management
+
 ```java
-private double num1, num2;          // Операнды
-private String operator;            // Текущая операция
-private boolean startNewNumber;     // Флаг начала нового числа
-private boolean calculationDone;    // Флаг завершения вычисления
+private double num1, num2;          // Operands
+private String operator;            // Current operation
+private boolean startNewNumber;     // Start new number flag
+private boolean calculationDone;    // Calculation completed flag
 ```
 
-## Планы развития
+---
 
-### Версия 2.0 (в разработке):
-- [ ] История вычислений
-- [ ] Кнопки памяти (M+, M-, MR, MC)
-- [ ] Поддержка Ctrl+C/V для копирования/вставки
+## Roadmap
 
-### Версия 3.0 (планируется):
-- [ ] Научный режим (sin, cos, sqrt, степени)
-- [ ] Конвертер единиц измерения
-- [ ] Светлая/темная тема
-- [ ] Поддержка выражений
+### Version 2.0 (in progress)
 
-## Вклад в проект
+* [ ] Calculation history
+* [ ] Memory buttons (M+, M-, MR, MC)
+* [ ] Ctrl+C / Ctrl+V copy & paste support
 
-Приветствуются Pull Requests! Для крупных изменений сначала откройте Issue для обсуждения.
+### Version 3.0 (planned)
 
-1. Форкните репозиторий
-2. Создайте ветку для фичи (`git checkout -b feature/amazing-feature`)
-3. Закоммитьте изменения (`git commit -m 'Add amazing feature'`)
-4. Запушьте ветку (`git push origin feature/amazing-feature`)
-5. Откройте Pull Request
+* [ ] Scientific mode (sin, cos, sqrt, powers)
+* [ ] Unit converter
+* [ ] Light / dark theme toggle
+* [ ] Expression support
 
-## Лицензия
+---
 
-Этот проект распространяется под лицензией MIT. Подробнее см. в файле [LICENSE](LICENSE).
+## Contributing
 
-## Автор
+Pull requests are welcome!
+For major changes, please open an Issue first to discuss your ideas.
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+---
+
+## License
+
+This project is licensed under the MIT License.
+See the [LICENSE](LICENSE) file for details.
+
+---
+
+## Author
 
 **Levitsky**
-- GitHub: [Anatoliy Levitsky](https://github.com/Lewickiy)
-- Проект: [JavaFX Calculator](https://github.com/Lewickiy/calculator)
+
+* GitHub: [Anatoliy Levitsky](https://github.com/Lewickiy)
+* Project: [JavaFX Calculator](https://github.com/Lewickiy/calculator)
