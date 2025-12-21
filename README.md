@@ -1,4 +1,4 @@
-# JavaFX Calculator
+# JavaFX Calculator for beginners
 
 A modern calculator with a polished interface, written in JavaFX. It supports keyboard and mouse input, features a dark theme, and follows a professional architecture.
 
